@@ -2,6 +2,12 @@
 
 #' Generate Regression Table
 #' @param fitlist list of regression outcomes
+#' @param digits number of digit to real numbers
+#' @param alpha  vector of significance levels to star
+#' @param bracket stats to be in brackets
+#' @param starred stats to star
+#' @param robust if TRUE, robust standard error is used
+#' @param small if TRUE, small sample parameter distribution is used
 #' @export
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
@@ -29,12 +35,12 @@ outreg <- function(fitlist,
   coef_df_reshaped <- reshape2::melt(coef_df_str,
                                      id.vars = c('modelname', 'variable'),
                                      variable.name = 'statname') %>%
-   tidyr::spread(key = modelname, value = value, fill = '')
+   tidyr::spread_(key = 'modelname', value = 'value', fill = '')
 
   stat_df_reshaped = reshape2::melt(stat_df_str,
                                     id.vars = 'modelname',
                                     variable.name = 'statname') %>%
-   tidyr::spread(key = modelname, value = value, fill = '')
+   tidyr::spread_(key = 'modelname', value = 'value', fill = '')
 
   # add dummy variable column to stat
   stat_df_reshaped$variable = ''

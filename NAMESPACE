@@ -2,5 +2,6 @@
 
 export(get_star)
 export(outreg)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
+importFrom(magrittr,"%>%")
+importFrom(stats,pnorm)
+importFrom(stats,pt)

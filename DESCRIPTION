@@ -12,8 +12,11 @@ LazyData: true
 Depends:
     R (>= 3.0)
 Imports:
+    magrittr,
+    reshape2,
     sandwich,
-    stats
+    stats,
+    tidyr
 Suggests:
     testthat
 RoxygenNote: 5.0.1

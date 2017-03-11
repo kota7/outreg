@@ -9,6 +9,18 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
+
+\item{digits}{number of digit to real numbers}
+
+\item{alpha}{vector of significance levels to star}
+
+\item{bracket}{stats to be in brackets}
+
+\item{starred}{stats to star}
+
+\item{robust}{if TRUE, robust standard error is used}
+
+\item{small}{if TRUE, small sample parameter distribution is used}
 }
 \description{
 Generate Regression Table
