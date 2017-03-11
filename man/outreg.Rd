@@ -15,6 +15,8 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 
 \item{alpha}{vector of significance levels to star}
 
+\item{displayed}{vector of stats names to display}
+
 \item{bracket}{stats to be in brackets}
 
 \item{starred}{stats to star}

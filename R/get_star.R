@@ -5,7 +5,7 @@
 #' @param alpha vector of significance levels
 #' @param ... not used
 #' if \code{NA}, normal distribution is used.
-#' @export
+#' @keywords internal
 get_star <- function(pv, alpha, ...)
 {
   alpha <- unique(sort(alpha))

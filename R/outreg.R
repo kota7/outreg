@@ -4,6 +4,7 @@
 #' @param fitlist list of regression outcomes
 #' @param digits number of digit to real numbers
 #' @param alpha  vector of significance levels to star
+#' @param displayed vector of stats names to display
 #' @param bracket stats to be in brackets
 #' @param starred stats to star
 #' @param robust if TRUE, robust standard error is used

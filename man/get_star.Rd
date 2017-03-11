@@ -18,4 +18,5 @@ if \code{NA}, normal distribution is used.}
 Based on the coefficient and standard errors and
 significance levels, return character vector of stars.
 }
+\keyword{internal}
 
