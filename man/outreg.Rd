@@ -5,7 +5,7 @@
 \title{Generate Regression Table}
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
-  se = TRUE, pv = FALSE, tv = FALSE, bracket = c("se"),
+  se = TRUE, pv = FALSE, tv = FALSE, zv = FALSE, bracket = c("se"),
   starred = c("coef"), robust = FALSE, small = TRUE)
 }
 \arguments{
@@ -22,6 +22,8 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
 \item{pv}{show p values}
 
 \item{tv}{show t values}
+
+\item{zv}{show z values}
 
 \item{bracket}{stats to be in brackets}
 
@@ -51,6 +53,33 @@ outreg(fitlist, starred = 'se')
 
 # include other stats
 outreg(fitlist, pv = TRUE, tv = TRUE, se = FALSE)
+
+
+# poisson regression
+counts <- c(18,17,15,20,10,20,25,13,12)
+outcome <- gl(3,1,9)
+treatment <- gl(3,3)
+fitlist2 <- list(glm(counts ~ outcome, family = poisson()),
+                 glm(counts ~ outcome + treatment, family = poisson()))
+outreg(fitlist2)
+
+
+# logistic regression
+fitlist3 <- list(glm(cbind(ncases, ncontrols) ~ agegp,
+                     data = esoph, family = binomial()),
+                 glm(cbind(ncases, ncontrols) ~ agegp + tobgp + alcgp,
+                     data = esoph, family = binomial()),
+                 glm(cbind(ncases, ncontrols) ~ agegp + tobgp * alcgp,
+                     data = esoph, family = binomial()))
+outreg(fitlist3)
+
+
+# survival regression
+fitlist4 <- list(survreg(Surv(time, status) ~ ph.ecog + age,
+                         data = lung),
+                 survreg(Surv(time, status) ~ ph.ecog + age + strata(sex),
+                         data = lung))
+outreg(fitlist4)
 
 }
 

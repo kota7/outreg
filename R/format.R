@@ -5,9 +5,8 @@ format_coef_part <- function(coef_df,
 {
   stopifnot(is.data.frame(coef_df))
 
-  star <- ifelse('pv' %in% names(coef_df),
-                 get_star(coef_df[['pv']], alpha, ...),
-                 rep('', nrow(coef_df)))
+  star <- rep('', nrow(coef_df))
+  if ('pv' %in% names(coef_df)) star <- get_star(coef_df[['pv']], alpha, ...)
 
   fmt_real <- sprintf('%%.%df', digits)
   var_list <- intersect(names(coef_df), .coef_part_meta$real_vars)
