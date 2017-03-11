@@ -4,8 +4,8 @@
 \alias{outreg}
 \title{Generate Regression Table}
 \usage{
-outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
-  displayed = c("coef", "se", "nobs", "R2", "adjR2"), bracket = c("se"),
+outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
+  se = TRUE, pv = FALSE, tv = FALSE, bracket = c("se"),
   starred = c("coef"), robust = FALSE, small = TRUE)
 }
 \arguments{
@@ -15,15 +15,24 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 
 \item{alpha}{vector of significance levels to star}
 
-\item{displayed}{vector of stats names to display}
+\item{coef}{show coefficients}
+
+\item{se}{show standard errors}
+
+\item{pv}{show p values}
+
+\item{tv}{show t values}
 
 \item{bracket}{stats to be in brackets}
 
-\item{starred}{stats to star}
+\item{starred}{stats to put stars on}
 
 \item{robust}{if TRUE, robust standard error is used}
 
 \item{small}{if TRUE, small sample parameter distribution is used}
+}
+\value{
+regression table in data.frame format
 }
 \description{
 Generate Regression Table
@@ -33,5 +42,15 @@ fitlist <- list(lm(mpg ~ cyl, data = mtcars),
                 lm(mpg ~ cyl + wt + hp, data = mtcars),
                 lm(mpg ~ cyl + wt + hp + drat, data = mtcars))
 outreg(fitlist)
+
+# with custom regression names
+outreg(setNames(fitlist, c('small', 'medium', 'large')))
+
+# star on standard errors, instead of estimate
+outreg(fitlist, starred = 'se')
+
+# include other stats
+outreg(fitlist, pv = TRUE, tv = TRUE, se = FALSE)
+
 }
 
