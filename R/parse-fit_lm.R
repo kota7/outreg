@@ -1,8 +1,8 @@
-make_coef_part.lm <- function(fit, modelname, robust = FALSE, small = FALSE, ...)
+make_coef_part.lm <- function(fit, modelname, robust = FALSE, small = TRUE, ...)
 {
   out <- data.frame(modelname = modelname,
                     variable = names(fit$coefficients),
-                    coef = fit$coefficients,
+                    coef = coefficients(fit),
                     stringsAsFactors = FALSE)
 
   se <- rep(NA, nrow(out))
@@ -11,7 +11,12 @@ make_coef_part.lm <- function(fit, modelname, robust = FALSE, small = FALSE, ...
   out$se <- se
 
   out$tv <- out$coef / out$se
-  out$pv <- pnorm(-abs(out$tv))*2
+
+  if (small) {
+    out$pv <- pt(-abs(out$tv), df.residual(fit))*2
+  } else {
+    pnorm(-abs(out$tv))*2
+  }
   rownames(out) <- NULL
   out
 }

@@ -19,7 +19,7 @@ outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
                    displayed = c('coef', 'se', 'nobs', 'R2', 'adjR2'),
                    bracket = c('se'), starred = c('coef'),
-                   robust = FALSE, small = FALSE)
+                   robust = FALSE, small = TRUE)
 {
   coef_df <- NULL
   stat_df <- NULL
@@ -44,10 +44,13 @@ outreg <- function(fitlist,
                                      variable.name = 'statname') %>%
     tidyr::spread_(key = 'modelname', value = 'value', fill = '')
   coef_df_reshaped$variable <- as.character(coef_df_reshaped$variable)
+  coef_df_reshaped$statname <- as.character(coef_df_reshaped$statname)
+
   stat_df_reshaped = reshape2::melt(stat_df_str,
                                     id.vars = 'modelname',
                                     variable.name = 'statname') %>%
     tidyr::spread_(key = 'modelname', value = 'value', fill = '')
+  stat_df_reshaped$statname <- as.character(stat_df_reshaped$statname)
 
   # add dummy variable column to stat
   stat_df_reshaped$variable = ''

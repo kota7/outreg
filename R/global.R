@@ -11,8 +11,8 @@
 )
 
 .display_names = list(
-  coef = 'Estimate', se = 'S.E.', pv = 'p Value', tv = 't Value',
-  nobs = 'N.', R2 = 'R2', adjR2 = 'adj. R2'
+  coef = 'Estimate', se = 'Std Err', pv = 'p Value', tv = 't Value',
+  nobs = 'N', R2 = 'R2', adjR2 = 'adj R2'
 )
 
 

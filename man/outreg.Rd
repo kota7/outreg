@@ -6,7 +6,7 @@
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
   displayed = c("coef", "se", "nobs", "R2", "adjR2"), bracket = c("se"),
-  starred = c("coef"), robust = FALSE, small = FALSE)
+  starred = c("coef"), robust = FALSE, small = TRUE)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}

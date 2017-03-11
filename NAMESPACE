@@ -2,5 +2,7 @@
 
 export(outreg)
 importFrom(magrittr,"%>%")
+importFrom(stats,coefficients)
+importFrom(stats,df.residual)
 importFrom(stats,pnorm)
 importFrom(stats,pt)
