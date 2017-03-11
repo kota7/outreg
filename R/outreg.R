@@ -66,6 +66,24 @@
 #' outreg(fitlist5)
 #'
 #'
+#' # instrumental variable regression
+#' library(AER)
+#' data("CigarettesSW", package = "AER")
+#' CigarettesSW$rprice <- with(CigarettesSW, price/cpi)
+#' CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
+#' CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
+#'
+#' fitlist6 <- list(lm(log(packs) ~ log(rprice) + log(rincome),
+#'                     data = CigarettesSW, subset = year == "1995"),
+#'                  ivreg(log(packs) ~ log(rprice) + log(rincome) |
+#'                        log(rincome) + tdiff + I(tax/cpi),
+#'                        data = CigarettesSW, subset = year == "1995"),
+#'                  ivreg(log(packs) ~ log(rprice) + log(rincome) |
+#'                        log(population) + tdiff + I(tax/cpi),
+#'                        data = CigarettesSW, subset = year == "1995"))
+#'
+#' outreg(fitlist6)
+#'
 #' @export
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
@@ -74,51 +92,40 @@ outreg <- function(fitlist,
                    robust = FALSE, small = TRUE)
 {
   coef_df <- list(NULL, NULL)
+  opt_df <- NULL
   stat_df <- NULL
+  modelnames <- character(0)
   for (i in seq_along(fitlist))
   {
     fit <- fitlist[[i]]
     modelname <- ifelse(is.null(names(fitlist)),
                         sprintf('Model %d', i), names(fitlist)[i])
+    modelnames <- c(modelnames, modelname)
 
     # coef part, possibly splitted into two
     tmp <- make_coef_part(fit, modelname, robust, small)
     if (is.data.frame(tmp)) {
-      coef_df[[1]] <- rbind(coef_df[[1]], tmp)
+      coef_df[[1]] <- lazy_rbind(coef_df[[1]], tmp)
     } else if (is.list(tmp)) {
-      for (j in seq_along(tmp)) coef_df[[j]] <- rbind(coef_df[[j]], tmp[[j]])
+      for (j in seq_along(tmp))
+        coef_df[[j]] <- lazy_rbind(coef_df[[j]], tmp[[j]])
     }
-    stat_df <- rbind(stat_df, make_stat_part(fit, modelname))
+    stat_df <- lazy_rbind(stat_df, make_stat_part(fit, modelname, robust))
+    opt_df <- lazy_rbind(opt_df, make_opt_part(fit, modelname, robust))
   }
 
   # stack coef parts
   coef_df <- do.call('rbind', coef_df)
   coef_df_str <- format_coef_part(coef_df, alpha, digits, bracket, starred)
   stat_df_str <- format_stat_part(stat_df, digits)
+  opt_df_str  <- format_opt_part(opt_df, digits)
 
-  # reshape and combine
-  ## factorize variable column to keep orders
-  coef_df_str$variable <- factor(coef_df_str$variable,
-                                 levels = unique(coef_df_str$variable))
-  coef_df_reshaped <- reshape2::melt(coef_df_str,
-                                     id.vars = c('modelname', 'variable'),
-                                     variable.name = 'statname') %>%
-    tidyr::spread_(key = 'modelname', value = 'value', fill = '')
-  coef_df_reshaped$variable <- as.character(coef_df_reshaped$variable)
-  coef_df_reshaped$statname <- as.character(coef_df_reshaped$statname)
+  coef_df_reshaped <- reshape_coef_part(coef_df_str)
+  stat_df_reshaped <- reshape_stat_part(stat_df_str)
+  opt_df_reshaped  <- reshape_opt_part(opt_df_str)
 
-  stat_df_reshaped = reshape2::melt(stat_df_str,
-                                    id.vars = 'modelname',
-                                    variable.name = 'statname') %>%
-    tidyr::spread_(key = 'modelname', value = 'value', fill = '')
-  stat_df_reshaped$statname <- as.character(stat_df_reshaped$statname)
-
-  # add dummy variable column to stat part
-  # so as to consistently bind with coef part
-  stat_df_reshaped$variable = ''
-  stat_df_reshaped <- stat_df_reshaped[names(coef_df_reshaped)]
-
-  out <- rbind(coef_df_reshaped, stat_df_reshaped)
+  out <- lazy_rbind(coef_df_reshaped, stat_df_reshaped, '') %>%
+    lazy_rbind(opt_df_reshaped, '')
 
   displayed <- unique(out$statname)
   if (!coef) displayed <- setdiff(displayed, 'coef')
@@ -127,7 +134,8 @@ outreg <- function(fitlist,
   if (!tv)   displayed <- setdiff(displayed, 'tv')
   if (!zv)   displayed <- setdiff(displayed, 'zv')
   out <- out[out$statname %in% displayed,]
-  out$statname <- .display_names[out$statname] %>% unlist() %>% unname()
+  out$statname[out$statname %in% names(.display_names)] <-
+    .display_names[out$statname] %>% unlist() %>% unname()
 
   out
 }

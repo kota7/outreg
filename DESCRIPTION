@@ -16,6 +16,7 @@ Imports:
     reshape2,
     sandwich,
     stats,
+    stringr,
     tidyr
 Suggests:
     AER,

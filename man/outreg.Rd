@@ -91,5 +91,23 @@ fitlist5 <- list(survreg(Surv(durable, durable>0, type='left') ~ 1,
 outreg(fitlist5)
 
 
+# instrumental variable regression
+library(AER)
+data("CigarettesSW", package = "AER")
+CigarettesSW$rprice <- with(CigarettesSW, price/cpi)
+CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
+CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
+
+fitlist6 <- list(lm(log(packs) ~ log(rprice) + log(rincome),
+                    data = CigarettesSW, subset = year == "1995"),
+                 ivreg(log(packs) ~ log(rprice) + log(rincome) |
+                       log(rincome) + tdiff + I(tax/cpi),
+                       data = CigarettesSW, subset = year == "1995"),
+                 ivreg(log(packs) ~ log(rprice) + log(rincome) |
+                       log(population) + tdiff + I(tax/cpi),
+                       data = CigarettesSW, subset = year == "1995"))
+
+outreg(fitlist6)
+
 }
 

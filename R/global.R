@@ -7,7 +7,15 @@
 
 .stat_part_meta <- list(
   all_vars = c('nobs', 'R2', 'adjR2', 'aic'),
-  real_vars = c('R2', 'adjR2', 'aic')
+  real_vars = c('R2', 'adjR2', 'aic',
+                'Wu-Hausman stat', 'Wu-Hausman p-value',
+                'Sargan stat', 'Sargan p-value'),
+  real_var_keys = character(0)
+)
+
+
+.opt_part_meta <- list(
+  real_vars = c('Weak instr stat', 'Weak instr p-value')
 )
 
 

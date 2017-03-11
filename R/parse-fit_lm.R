@@ -25,6 +25,7 @@ make_coef_part.lm <- function(fit, modelname, robust = FALSE, small = TRUE, ...)
 make_stat_part.lm <- function(fit, modelname, ...)
 {
   data.frame(modelname = modelname,
+             variable = '',
              nobs = length(fitted.values(fit)),
              R2 = summary(fit)$r.squared,
              adjR2 = summary(fit)$adj.r.squared,

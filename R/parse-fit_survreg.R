@@ -41,6 +41,7 @@ make_coef_part.survreg <- function(fit, modelname, robust = FALSE, ...)
 make_stat_part.survreg <- function(fit, modelname, ...)
 {
   data.frame(modelname = modelname,
+             variable = '',
              nobs = length(fit$linear.predictors),
              aic = AIC(fit),
              stringsAsFactors = FALSE)

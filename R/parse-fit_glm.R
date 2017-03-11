@@ -21,6 +21,7 @@ make_coef_part.glm <- function(fit, modelname, robust = FALSE, ...)
 make_stat_part.glm <- function(fit, modelname, ...)
 {
   data.frame(modelname = modelname,
+             variable = '',
              nobs = length(fit$fitted.values),
              aic = AIC(fit),
              stringsAsFactors = FALSE)

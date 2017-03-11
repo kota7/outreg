@@ -27,6 +27,27 @@ format_coef_part <- function(coef_df,
 }
 
 
+
+format_opt_part <- function(opt_df, digits = 3L, ...)
+{
+  if (is.null(opt_df)) return(NULL)
+  stopifnot(is.data.frame(opt_df))
+
+  fmt_real <- sprintf('%%.%df', digits)
+  var_list <- intersect(names(opt_df), .opt_part_meta$real_vars)
+  for (j in var_list) opt_df[[j]] <- sprintf(fmt_real, opt_df[[j]])
+
+
+  for (j in seq_along(opt_df))
+  {
+    if (is.numeric(opt_df[[j]])) opt_df[[j]] <- as.character(opt_df[[j]])
+  }
+
+  opt_df
+}
+
+
+
 format_stat_part <- function(stat_df, digits = 3L, ...)
 {
   stopifnot(is.data.frame(stat_df))
@@ -34,6 +55,15 @@ format_stat_part <- function(stat_df, digits = 3L, ...)
   fmt_real <- sprintf('%%.%df', digits)
   var_list <- intersect(names(stat_df), .stat_part_meta$real_vars)
   for (j in var_list) stat_df[[j]] <- sprintf(fmt_real, stat_df[[j]])
+
+  var_list <- numeric(0)
+  for (key in .stat_part_meta$real_var_keys)
+    var_list <- union(var_list, grep(key, names(stat_df)))
+  for (j in var_list)
+  {
+    if (is.numeric(stat_df[[j]]))
+        stat_df[[j]] <- sprintf(fmt_real, stat_df[[j]])
+  }
 
   for (j in seq_along(stat_df))
   {
