@@ -5,14 +5,17 @@ format_coef_part <- function(coef_df,
 {
   stopifnot(is.data.frame(coef_df))
 
-  var_list <- intersect(names(coef_df), .stats_meta$coef_part$variable_name)
-  for (j in var_list) coef_df[[j]] <- round(coef_df[[j]], digits)
+  star <- ifelse('pv' %in% names(coef_df),
+                 get_star(coef_df[['pv']], alpha, ...),
+                 rep('', nrow(coef_df)))
 
-  if ('pv' %in% names(coef_df)) {
-    star <- get_star(coef_df[['pv']], alpha, ...)
-    var_list <- intersect(names(coef_df), starred)
-    for (j in var_list) coef_df[[j]] <- paste0(coef_df[[j]], star)
-  }
+  fmt_real <- sprintf('%%.%df', digits)
+  var_list <- intersect(names(coef_df), .coef_part_meta$real_vars)
+  for (j in var_list) coef_df[[j]] <- sprintf(fmt_real, coef_df[[j]])
+
+  var_list <- intersect(names(coef_df), starred)
+  for (j in var_list) coef_df[[j]] <- paste0(coef_df[[j]], star)
+
 
   var_list <- intersect(names(coef_df), bracket)
   for (j in var_list) coef_df[[j]] <- paste0('[', coef_df[[j]], ']')
@@ -29,8 +32,9 @@ format_stat_part <- function(stat_df, digits = 3L, ...)
 {
   stopifnot(is.data.frame(stat_df))
 
-  var_list <- intersect(names(stat_df), .stats_meta$stat_part$variable_name)
-  for (j in var_list) stat_df[[j]] <- round(stat_df[[j]], digits)
+  fmt_real <- sprintf('%%.%df', digits)
+  var_list <- intersect(names(stat_df), .stat_part_meta$real_vars)
+  for (j in var_list) stat_df[[j]] <- sprintf(fmt_real, stat_df[[j]])
 
   for (j in seq_along(stat_df))
   {

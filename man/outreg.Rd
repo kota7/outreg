@@ -5,7 +5,8 @@
 \title{Generate Regression Table}
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
-  bracket = c("se"), starred = c("se"), robust = FALSE, small = FALSE)
+  displayed = c("coef", "se", "nobs", "R2", "adjR2"), bracket = c("se"),
+  starred = c("coef"), robust = FALSE, small = FALSE)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
@@ -24,5 +25,11 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 }
 \description{
 Generate Regression Table
+}
+\examples{
+fitlist <- list(lm(mpg ~ cyl, data = mtcars),
+                lm(mpg ~ cyl + wt + hp, data = mtcars),
+                lm(mpg ~ cyl + wt + hp + drat, data = mtcars))
+outreg(fitlist)
 }
 
