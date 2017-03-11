@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Kota Mori <kmori05@gmail.com>
 Maintainer: Kota Mori <kmori05@gmail.com>
 Description: Create regression tables for publication.
-    Currently supports lm, glm, and ivreg outputs.
+    Currently supports lm, glm, suvreg, and ivreg outputs.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -18,5 +18,7 @@ Imports:
     stats,
     tidyr
 Suggests:
+    AER,
+    survival,
     testthat
 RoxygenNote: 5.0.1

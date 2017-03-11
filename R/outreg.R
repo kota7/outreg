@@ -50,11 +50,21 @@
 #'
 #'
 #' # survival regression
+#' library(survival)
 #' fitlist4 <- list(survreg(Surv(time, status) ~ ph.ecog + age,
 #'                          data = lung),
 #'                  survreg(Surv(time, status) ~ ph.ecog + age + strata(sex),
 #'                          data = lung))
 #' outreg(fitlist4)
+#'
+#'
+#' # tobit regression
+#' fitlist5 <- list(survreg(Surv(durable, durable>0, type='left') ~ 1,
+#'                  data=tobin, dist='gaussian'),
+#'                  survreg(Surv(durable, durable>0, type='left') ~ age + quant,
+#'                  data=tobin, dist='gaussian'))
+#' outreg(fitlist5)
+#'
 #'
 #' @export
 outreg <- function(fitlist,
@@ -63,17 +73,26 @@ outreg <- function(fitlist,
                    bracket = c('se'), starred = c('coef'),
                    robust = FALSE, small = TRUE)
 {
-  coef_df <- NULL
+  coef_df <- list(NULL, NULL)
   stat_df <- NULL
   for (i in seq_along(fitlist))
   {
     fit <- fitlist[[i]]
     modelname <- ifelse(is.null(names(fitlist)),
                         sprintf('Model %d', i), names(fitlist)[i])
-    coef_df <- rbind(coef_df, make_coef_part(fit, modelname, robust, small))
+
+    # coef part, possibly splitted into two
+    tmp <- make_coef_part(fit, modelname, robust, small)
+    if (is.data.frame(tmp)) {
+      coef_df[[1]] <- rbind(coef_df[[1]], tmp)
+    } else if (is.list(tmp)) {
+      for (j in seq_along(tmp)) coef_df[[j]] <- rbind(coef_df[[j]], tmp[[j]])
+    }
     stat_df <- rbind(stat_df, make_stat_part(fit, modelname))
   }
 
+  # stack coef parts
+  coef_df <- do.call('rbind', coef_df)
   coef_df_str <- format_coef_part(coef_df, alpha, digits, bracket, starred)
   stat_df_str <- format_stat_part(stat_df, digits)
 

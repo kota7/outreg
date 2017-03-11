@@ -28,7 +28,13 @@ make_coef_part.survreg <- function(fit, modelname, robust = FALSE, ...)
   out$pv <- pnorm(-abs(out$zv))*2
 
   rownames(out) <- NULL
-  out
+
+  # separate scale part
+  if (nvar > nvar0) {
+    list(out[1:nvar0, ], out[(nvar0+1):nvar, ])
+  } else {
+    list(out)
+  }
 }
 
 

@@ -75,11 +75,21 @@ outreg(fitlist3)
 
 
 # survival regression
+library(survival)
 fitlist4 <- list(survreg(Surv(time, status) ~ ph.ecog + age,
                          data = lung),
                  survreg(Surv(time, status) ~ ph.ecog + age + strata(sex),
                          data = lung))
 outreg(fitlist4)
+
+
+# tobit regression
+fitlist5 <- list(survreg(Surv(durable, durable>0, type='left') ~ 1,
+                 data=tobin, dist='gaussian'),
+                 survreg(Surv(durable, durable>0, type='left') ~ age + quant,
+                 data=tobin, dist='gaussian'))
+outreg(fitlist5)
+
 
 }
 
