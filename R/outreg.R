@@ -73,15 +73,14 @@
 #' CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
 #' CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
 #'
-#' fitlist6 <- list(lm(log(packs) ~ log(rprice) + log(rincome),
-#'                     data = CigarettesSW, subset = year == "1995"),
-#'                  ivreg(log(packs) ~ log(rprice) + log(rincome) |
-#'                        log(rincome) + tdiff + I(tax/cpi),
-#'                        data = CigarettesSW, subset = year == "1995"),
-#'                  ivreg(log(packs) ~ log(rprice) + log(rincome) |
-#'                        log(population) + tdiff + I(tax/cpi),
-#'                        data = CigarettesSW, subset = year == "1995"))
-#'
+#' fitlist6 <- list(OLS = lm(log(packs) ~ log(rprice) + log(rincome),
+#'                           data = CigarettesSW, subset = year == "1995"),
+#'                  IV1 = ivreg(log(packs) ~ log(rprice) + log(rincome) |
+#'                              log(rincome) + tdiff + I(tax/cpi),
+#'                              data = CigarettesSW, subset = year == "1995"),
+#'                  IV2 = ivreg(log(packs) ~ log(rprice) + log(rincome) |
+#'                              log(population) + tdiff + I(tax/cpi),
+#'                              data = CigarettesSW, subset = year == "1995"))
 #' outreg(fitlist6)
 #'
 #' @export
@@ -94,13 +93,21 @@ outreg <- function(fitlist,
   coef_df <- list(NULL, NULL)
   opt_df <- NULL
   stat_df <- NULL
-  modelnames <- character(0)
+
+  modelnames_true <- paste('Model', seq_along(fitlist))
+  if (!is.null(names(fitlist))) {
+    flg <- !is.na(names(fitlist))
+    modelnames_true[flg] <- names(fitlist)[flg]
+  }
+  # make temporary model names
+  invalid_names <- c('variable', 'statname', 'value', 'stat1', 'stat2')
+  modelnames <- make_unique(c(invalid_names, modelnames_true)) %>%
+    tail(length(modelnames_true))
+
   for (i in seq_along(fitlist))
   {
     fit <- fitlist[[i]]
-    modelname <- ifelse(is.null(names(fitlist)),
-                        sprintf('Model %d', i), names(fitlist)[i])
-    modelnames <- c(modelnames, modelname)
+    modelname <- modelnames[i]
 
     # coef part, possibly splitted into two
     tmp <- make_coef_part(fit, modelname, robust, small)
@@ -137,5 +144,8 @@ outreg <- function(fitlist,
   out$statname[out$statname %in% names(.display_names)] <-
     .display_names[out$statname] %>% unlist() %>% unname()
 
+
+  out <- out[c('variable', 'statname', modelnames)]
+  names(out) <- c('.variable', '.stat', modelnames_true)
   out
 }

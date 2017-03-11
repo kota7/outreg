@@ -3,6 +3,9 @@
 #' @importFrom stats model.matrix vcov AIC
 NULL
 
+#' @importFrom utils tail
+NULL
+
 #' @importFrom sandwich sandwich
 NULL
 
@@ -24,4 +27,29 @@ lazy_rbind <- function(a, b, fill = NA)
 
   b <- b[names(a)]
   rbind(a, b)
+}
+
+
+
+make_unique <- function(x)
+{
+  stopifnot(is.character(x))
+  while (TRUE)
+  {
+    flg <- duplicated(x)
+    if (!any(flg)) break
+
+    i <- which(flg)[1]
+    suf <- 2
+    while (TRUE)
+    {
+      a <- paste(x[i], suf, sep = '_')
+      if (!(a %in% x)) {
+        x[i] <- a
+        break
+      }
+      suf <- suf + 1
+    }
+  }
+  x
 }
