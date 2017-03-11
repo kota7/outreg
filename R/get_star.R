@@ -4,7 +4,7 @@
 #' @param pv vector of p values
 #' @param alpha vector of significance levels
 #' @param ... not used
-#' if \code{NA}, normal distribution is used.
+#' @return character vector
 #' @keywords internal
 get_star <- function(pv, alpha, ...)
 {

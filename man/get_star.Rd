@@ -11,8 +11,10 @@ get_star(pv, alpha, ...)
 
 \item{alpha}{vector of significance levels}
 
-\item{...}{not used
-if \code{NA}, normal distribution is used.}
+\item{...}{not used}
+}
+\value{
+character vector
 }
 \description{
 Based on the coefficient and standard errors and
