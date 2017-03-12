@@ -1,0 +1,152 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+```{r, include=FALSE}
+library(outreg)
+```
+
+
+# outreg
+Create Regression Tables for Publication 
+
+```{r, echo=FALSE}
+fitlist <- list(lm(mpg ~ cyl, data = mtcars),
+                lm(mpg ~ cyl + wt + hp, data = mtcars),
+                lm(mpg ~ cyl + wt + hp + drat, data = mtcars))
+knitr::kable(outreg(fitlist))
+```
+
+## Overview
+
+`outreg` summarizes regression outcomes into a coefficient table in `data.frame` format.  Currently, `outreg` supports the following model fit objects:
+
+- `lm`  : linear regression
+- `glm` : logistic regression, poisson regression, etc
+- `survreg` : survival regression, tobit regression, etc
+- `ivreg` : instrument variable regression
+
+
+## Usage
+
+`outreg` takes a list of model fit objects as the main input, and returns a 
+`data.frame` object where a model is represented in a column.
+
+```{r}
+library(outreg)
+fitlist <- list(lm(mpg ~ cyl, data = mtcars),
+                lm(mpg ~ cyl + wt + hp, data = mtcars),
+                lm(mpg ~ cyl + wt + hp + drat, data = mtcars))
+outreg(fitlist)
+```
+
+
+## Installation
+
+This package is not on CRAN (yet).  Please install by from the github repository.
+
+```{r, eval=FALSE}
+devtools::install_github('kota7/outreg')
+```
+
+
+## Examples
+
+
+### Basic usage.
+```{r}
+library(outreg)
+fitlist <- list(lm(mpg ~ cyl, data = mtcars),
+                lm(mpg ~ cyl + wt + hp, data = mtcars),
+                lm(mpg ~ cyl + wt + hp + drat, data = mtcars))
+outreg(fitlist)
+```
+
+### If regression list is named, the names are used as column names.
+```{r}
+outreg(setNames(fitlist, c('small', 'medium', 'large')))
+```
+
+### May choose statistics to display and which stats to put "stars" on.
+```{r}
+outreg(fitlist, pv = TRUE, se = FALSE, starred = 'pv')
+```
+
+
+
+
+
+### Poisson regression.
+```{r}
+counts <- c(18,17,15,20,10,20,25,13,12)
+outcome <- gl(3,1,9)
+treatment <- gl(3,3)
+fitlist2 <- list(glm(counts ~ outcome, family = poisson()),
+                 glm(counts ~ outcome + treatment, family = poisson()))
+outreg(fitlist2)
+```
+
+
+
+### Logistic regression.
+```{r}
+fitlist3 <- list(glm(cbind(ncases, ncontrols) ~ agegp,
+                     data = esoph, family = binomial()),
+                 glm(cbind(ncases, ncontrols) ~ agegp + tobgp + alcgp,
+                     data = esoph, family = binomial()),
+                 glm(cbind(ncases, ncontrols) ~ agegp + tobgp * alcgp,
+                     data = esoph, family = binomial()))
+outreg(fitlist3)
+```
+
+
+### Survival regression
+```{r}
+library(survival)
+fitlist4 <- list(survreg(Surv(time, status) ~ ph.ecog + age,
+                         data = lung),
+                 survreg(Surv(time, status) ~ ph.ecog + age + strata(sex),
+                         data = lung))
+outreg(fitlist4)
+```
+
+
+
+### Tobit regression
+```{r}
+fitlist5 <- list(survreg(Surv(durable, durable>0, type='left') ~ 1,
+                 data=tobin, dist='gaussian'),
+                 survreg(Surv(durable, durable>0, type='left') ~ age + quant,
+                 data=tobin, dist='gaussian'))
+outreg(fitlist5)
+```
+
+
+### Combine instrument variable regression and linear regression.
+```{r, message=FALSE}
+library(AER)
+data("CigarettesSW", package = "AER")
+CigarettesSW$rprice <- with(CigarettesSW, price/cpi)
+CigarettesSW$rincome <- with(CigarettesSW, income/population/cpi)
+CigarettesSW$tdiff <- with(CigarettesSW, (taxs - tax)/cpi)
+
+fitlist6 <- list(OLS = lm(log(packs) ~ log(rprice) + log(rincome),
+                          data = CigarettesSW, subset = year == "1995"),
+                 IV1 = ivreg(log(packs) ~ log(rprice) + log(rincome) |
+                             log(rincome) + tdiff + I(tax/cpi),
+                             data = CigarettesSW, subset = year == "1995"),
+                 IV2 = ivreg(log(packs) ~ log(rprice) + log(rincome) |
+                             log(population) + tdiff + I(tax/cpi),
+                             data = CigarettesSW, subset = year == "1995"))
+outreg(fitlist6)
+```
