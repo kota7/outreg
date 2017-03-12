@@ -65,7 +65,8 @@ outreg(fitlist)
 Installation
 ------------
 
-This package is not on CRAN (yet). Please install by from the github repository.
+This package is not on CRAN (yet).
+Please install it from the github repository.
 
 ``` r
 devtools::install_github('kota7/outreg')
@@ -287,8 +288,6 @@ fitlist6 <- list(OLS = lm(log(packs) ~ log(rprice) + log(rincome),
                              log(population) + tdiff + I(tax/cpi),
                              data = CigarettesSW, subset = year == "1995"))
 outreg(fitlist6)
-#> Warning in `[<-.factor`(`*tmp*`, iseq, value = c("", "", "")): invalid
-#> factor level, NA generated
 #>       .variable              .stat       OLS       IV1       IV2
 #> 1   (Intercept)           Estimate 10.342***  9.895*** 10.116***
 #> 2   (Intercept)            Std Err   [1.023]   [1.059]   [1.210]
