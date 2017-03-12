@@ -12,9 +12,14 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+
+[![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg)
+
 ```{r, include=FALSE}
 library(outreg)
 ```
+
 
 
 # outreg
