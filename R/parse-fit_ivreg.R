@@ -77,7 +77,7 @@ make_opt_part.ivreg <- function(fit, modelname, robust = FALSE, ...)
   stats <- sub('[ ]*\\((.*)\\)$', '', rownames(diag))
 
   diag <- diag[, c(3,4)]
-  diag <- as.data.frame(diag)
+  diag <- as.data.frame(diag, stringsAsFactors = FALSE)
   rownames(diag) <- NULL
   diag$variable <- vars
   diag$stat1 <- stats

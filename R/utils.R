@@ -53,3 +53,15 @@ make_unique <- function(x)
   }
   x
 }
+
+
+
+unfactor_df <- function(x)
+{
+  stopifnot(is.data.frame(x))
+  for (j in seq_along(x))
+  {
+    if (is.factor(x[[j]])) x[[j]] <- as.character(x[[j]])
+  }
+  x
+}

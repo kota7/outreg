@@ -9,6 +9,9 @@ format_coef_part <- function(coef_df,
   # remeber NA positions
   na_pos <- lapply(coef_df, function(v) which(is.na(v)))
 
+  # make sure all variables are not factor
+  coef_df <- unfactor_df(coef_df)
+
   star <- rep('', nrow(coef_df))
   if ('pv' %in% names(coef_df)) star <- get_star(coef_df[['pv']], alpha, ...)
 
@@ -43,6 +46,9 @@ format_opt_part <- function(opt_df, digits = 3L, ...)
   # remeber NA positions
   na_pos <- lapply(opt_df, function(v) which(is.na(v)))
 
+  # make sure all variables are not factor
+  opt_df <- unfactor_df(opt_df)
+
   fmt_real <- sprintf('%%.%df', digits)
   var_list <- intersect(names(opt_df), .opt_part_meta$real_vars)
   for (j in var_list) opt_df[[j]] <- sprintf(fmt_real, opt_df[[j]])
@@ -66,7 +72,11 @@ format_stat_part <- function(stat_df, digits = 3L, ...)
   if (is.null(stat_df)) return(NULL)
   stopifnot(is.data.frame(stat_df))
 
+  # remeber NA positions
   na_pos <- lapply(stat_df, function(v) which(is.na(v)))
+
+  # make sure all variables are not factor
+  stat_df <- unfactor_df(stat_df)
 
   fmt_real <- sprintf('%%.%df', digits)
   var_list <- intersect(names(stat_df), .stat_part_meta$real_vars)

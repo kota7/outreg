@@ -90,16 +90,19 @@ outreg <- function(fitlist,
                    bracket = c('se'), starred = c('coef'),
                    robust = FALSE, small = TRUE)
 {
-  # check the class of fitlist
-  if (!is.list(fitlist)) {
-    stop('fitlist must be a list of model objects')
-  }
+  # check the class of fitlist object
+
+  ## if a single fit is given, put it in a list
+  if (is_supported(fitlist)) fitlist <- list(fitlist)
+
+
+  if (!is.list(fitlist)) stop('fitlist must be a list of model objects')
+
 
   flg <- lapply(fitlist, is_supported) %>% unlist()
-  if (any(!flg)) {
-    stop('Unsupported object found at index: ',
-         paste(which(!flg), collapse = ', '))
-  }
+  if (any(!flg))
+    stop('Unsupported object at: ', paste(which(!flg), collapse = ', '))
+
 
 
   coef_df <- list(NULL, NULL)
@@ -139,6 +142,7 @@ outreg <- function(fitlist,
   stat_df_str <- format_stat_part(stat_df, digits)
   opt_df_str  <- format_opt_part(opt_df, digits)
 
+  # reshape each part
   coef_df_reshaped <- reshape_coef_part(coef_df_str)
   stat_df_reshaped <- reshape_stat_part(stat_df_str)
   opt_df_reshaped  <- reshape_opt_part(opt_df_str)
