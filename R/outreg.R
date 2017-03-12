@@ -90,6 +90,18 @@ outreg <- function(fitlist,
                    bracket = c('se'), starred = c('coef'),
                    robust = FALSE, small = TRUE)
 {
+  # check the class of fitlist
+  if (!is.list(fitlist)) {
+    stop('fitlist must be a list of model objects')
+  }
+
+  flg <- lapply(fitlist, is_supported) %>% unlist()
+  if (any(!flg)) {
+    stop('Unsupported object found at index: ',
+         paste(which(!flg), collapse = ', '))
+  }
+
+
   coef_df <- list(NULL, NULL)
   opt_df <- NULL
   stat_df <- NULL
@@ -149,3 +161,14 @@ outreg <- function(fitlist,
   names(out) <- c('.variable', '.stat', modelnames_true)
   out
 }
+
+
+
+is_supported <- function(fit)
+{
+  # check if fit is a supported class object
+
+  inherits(fit, 'lm') || inherits(fit, 'glm') ||
+  inherits(fit, 'survreg') || inherits(fit, 'ivreg')
+}
+

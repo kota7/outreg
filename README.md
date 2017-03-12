@@ -287,6 +287,8 @@ fitlist6 <- list(OLS = lm(log(packs) ~ log(rprice) + log(rincome),
                              log(population) + tdiff + I(tax/cpi),
                              data = CigarettesSW, subset = year == "1995"))
 outreg(fitlist6)
+#> Warning in `[<-.factor`(`*tmp*`, iseq, value = c("", "", "")): invalid
+#> factor level, NA generated
 #>       .variable              .stat       OLS       IV1       IV2
 #> 1   (Intercept)           Estimate 10.342***  9.895*** 10.116***
 #> 2   (Intercept)            Std Err   [1.023]   [1.059]   [1.210]
@@ -297,11 +299,11 @@ outreg(fitlist6)
 #> 13                               N        48        48        48
 #> 14                              R2     0.433     0.429     0.274
 #> 15                          adj R2     0.408     0.404     0.241
-#> 16                             AIC   -19.680        NA        NA
-#> 17                 Wu-Hausman stat        NA     3.068     3.553
-#> 18              Wu-Hausman p-value        NA     0.087     0.037
-#> 19                     Sargan stat        NA     0.333     0.076
-#> 20                  Sargan p-value        NA     0.564     0.783
+#> 16                             AIC   -19.680                    
+#> 17                 Wu-Hausman stat               3.068     3.553
+#> 18              Wu-Hausman p-value               0.087     0.037
+#> 19                     Sargan stat               0.333     0.076
+#> 20                  Sargan p-value               0.564     0.783
 #> 21  log(rprice)    Weak instr stat             244.734   195.613
 #> 22  log(rprice) Weak instr p-value               0.000     0.000
 #> 23 log(rincome)    Weak instr stat                         7.767
