@@ -2,7 +2,7 @@
 
 #' Generate Regression Table
 #' @param fitlist list of regression outcomes
-#' @param digits number of digit to real numbers
+#' @param digits number of dicimal places for real numbers
 #' @param alpha  vector of significance levels to star
 #' @param coef show coefficients
 #' @param se show standard errors

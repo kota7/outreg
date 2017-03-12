@@ -11,7 +11,7 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
 \arguments{
 \item{fitlist}{list of regression outcomes}
 
-\item{digits}{number of digit to real numbers}
+\item{digits}{number of dicimal places for real numbers}
 
 \item{alpha}{vector of significance levels to star}
 
