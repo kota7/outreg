@@ -13,3 +13,14 @@ outreg_stat_list <- function()
 }
 
 
+#' Return display name for stats
+#' @param stats character vector of stats
+#' @return character vector of display names
+#' @export
+get_display_names <- function(stats)
+{
+  flg <- stats %in% names(.display_names)
+  out <- rep(NA_character_, length(stats))
+  out[flg] <- .display_names[stats[flg]] %>% unlist() %>% unname()
+  out
+}

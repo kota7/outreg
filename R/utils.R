@@ -90,3 +90,8 @@ get_not_displayed <- function(displayed, ...)
 }
 
 
+replace_duplicate <- function(x, by = '')
+{
+  x[duplicated(x)] <- by
+  x
+}
