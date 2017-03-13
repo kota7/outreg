@@ -6,6 +6,7 @@
 #' @param alpha  vector of significance levels to star
 #' @param bracket stats to be in brackets
 #' @param starred stats to put stars on
+#' @param constbot put intercept estimate at the bottom
 #' @param robust if TRUE, robust standard error is used
 #' @param small if TRUE, small sample parameter distribution is used
 #' @param displayed list to customize the stats to displaye
@@ -84,6 +85,7 @@
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
                    bracket = c('se'), starred = c('coef'),
+                   constbot = FALSE,
                    robust = FALSE, small = TRUE,
                    displayed = list(), ...)
 {
@@ -140,7 +142,7 @@ outreg <- function(fitlist,
   opt_df_str  <- format_opt_part(opt_df, digits)
 
   # reshape each part
-  coef_df_reshaped <- reshape_coef_part(coef_df_str)
+  coef_df_reshaped <- reshape_coef_part(coef_df_str, constbot)
   stat_df_reshaped <- reshape_stat_part(stat_df_str)
   opt_df_reshaped  <- reshape_opt_part(opt_df_str)
 

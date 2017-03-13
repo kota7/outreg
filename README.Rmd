@@ -69,7 +69,7 @@ devtools::install_github('kota7/outreg')
 ## Examples
 
 
-### Basic usage.
+### Basic usage
 ```{r}
 library(outreg)
 fitlist <- list(lm(mpg ~ cyl, data = mtcars),
@@ -78,21 +78,33 @@ fitlist <- list(lm(mpg ~ cyl, data = mtcars),
 outreg(fitlist)
 ```
 
-### If regression list is named, the names are used as column names.
+### Custom regression names
+
+If regression list is named, the names are used as column names.
 ```{r}
 outreg(setNames(fitlist, c('small', 'medium', 'large')))
 ```
 
-### May choose statistics to display and which stats to put "stars" on.
+### Custom stats and stars
+You may choose statistics to display and which stats to put "stars" on, and significance level.
 ```{r}
-outreg(fitlist, pv = TRUE, se = FALSE, starred = 'pv')
+outreg(fitlist, pv = TRUE, se = FALSE, 
+       starred = 'pv', alpha = c(0.05, 0.01, 0.001))
 ```
 
 
+### Constant term at the bottom
+```{r}
+outreg(fitlist, constbot = TRUE)
+```
+
+### Heteroskedacity robust standard errors
+```{r}
+outreg(fitlist, robust = TRUE)
+```
 
 
-
-### Poisson regression.
+### Poisson regression
 ```{r}
 counts <- c(18,17,15,20,10,20,25,13,12)
 outcome <- gl(3,1,9)
@@ -104,7 +116,7 @@ outreg(fitlist2)
 
 
 
-### Logistic regression.
+### Logistic regression
 ```{r}
 fitlist3 <- list(glm(cbind(ncases, ncontrols) ~ agegp,
                      data = esoph, family = binomial()),
@@ -138,7 +150,7 @@ outreg(fitlist5)
 ```
 
 
-### Combine instrument variable regression and linear regression.
+### Mix of OLS and instrument variable regression
 ```{r, message=FALSE}
 library(AER)
 data("CigarettesSW", package = "AER")

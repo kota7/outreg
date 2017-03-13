@@ -5,8 +5,8 @@
 \title{Generate Regression Table}
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
-  bracket = c("se"), starred = c("coef"), robust = FALSE, small = TRUE,
-  displayed = list(), ...)
+  bracket = c("se"), starred = c("coef"), constbot = FALSE,
+  robust = FALSE, small = TRUE, displayed = list(), ...)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
@@ -18,6 +18,8 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 \item{bracket}{stats to be in brackets}
 
 \item{starred}{stats to put stars on}
+
+\item{constbot}{put intercept estimate at the bottom}
 
 \item{robust}{if TRUE, robust standard error is used}
 

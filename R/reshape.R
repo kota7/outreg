@@ -1,10 +1,13 @@
-reshape_coef_part <- function(coef_df_str)
+reshape_coef_part <- function(coef_df_str, constbot)
 {
   if (is.null(coef_df_str)) return(NULL)
 
   ## factorize variable column to keep orders
-  coef_df_str$variable <- factor(coef_df_str$variable,
-                                 levels = unique(coef_df_str$variable))
+  coef_levels <- unique(as.character(coef_df_str$variable))
+  if (constbot && ('(Intercept)' %in% coef_levels)) {
+    coef_levels <- c(setdiff(coef_levels, '(Intercept)'), '(Intercept)')
+  }
+  coef_df_str$variable <- factor(coef_df_str$variable, levels = coef_levels)
 
   coef_df_reshaped <- reshape2::melt(coef_df_str,
                                      id.vars = c('modelname', 'variable'),

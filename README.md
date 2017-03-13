@@ -75,7 +75,7 @@ devtools::install_github('kota7/outreg')
 Examples
 --------
 
-### Basic usage.
+### Basic usage
 
 ``` r
 library(outreg)
@@ -100,7 +100,9 @@ outreg(fitlist)
 #> 24                  AIC   169.306   155.477   157.067
 ```
 
-### If regression list is named, the names are used as column names.
+### Custom regression names
+
+If regression list is named, the names are used as column names.
 
 ``` r
 outreg(setNames(fitlist, c('small', 'medium', 'large')))
@@ -121,17 +123,20 @@ outreg(setNames(fitlist, c('small', 'medium', 'large')))
 #> 24                  AIC   169.306   155.477   157.067
 ```
 
-### May choose statistics to display and which stats to put "stars" on.
+### Custom stats and stars
+
+You may choose statistics to display and which stats to put "stars" on, and significance level.
 
 ``` r
-outreg(fitlist, pv = TRUE, se = FALSE, starred = 'pv')
+outreg(fitlist, pv = TRUE, se = FALSE, 
+       starred = 'pv', alpha = c(0.05, 0.01, 0.001))
 #>      .variable    .stat  Model 1  Model 2  Model 3
 #> 1  (Intercept) Estimate   37.885   38.752   34.496
 #> 4  (Intercept)  p Value 0.000*** 0.000*** 0.000***
 #> 5          cyl Estimate   -2.876   -0.942   -0.762
-#> 8          cyl  p Value 0.000***   0.098*    0.240
+#> 8          cyl  p Value 0.000***    0.098    0.240
 #> 9           wt Estimate            -3.167   -2.973
-#> 12          wt  p Value          0.000*** 0.001***
+#> 12          wt  p Value          0.000***  0.001**
 #> 13          hp Estimate            -0.018   -0.021
 #> 16          hp  p Value             0.140    0.118
 #> 17        drat Estimate                      0.818
@@ -142,7 +147,49 @@ outreg(fitlist, pv = TRUE, se = FALSE, starred = 'pv')
 #> 24                  AIC  169.306  155.477  157.067
 ```
 
-### Poisson regression.
+### Constant term at the bottom
+
+``` r
+outreg(fitlist, constbot = TRUE)
+#>      .variable    .stat   Model 1   Model 2   Model 3
+#> 1          cyl Estimate -2.876***   -0.942*    -0.762
+#> 2          cyl  Std Err   [0.322]   [0.551]   [0.635]
+#> 5           wt Estimate           -3.167*** -2.973***
+#> 6           wt  Std Err             [0.741]   [0.818]
+#> 9           hp Estimate              -0.018    -0.021
+#> 10          hp  Std Err             [0.012]   [0.013]
+#> 13        drat Estimate                         0.818
+#> 14        drat  Std Err                       [1.387]
+#> 17 (Intercept) Estimate 37.885*** 38.752*** 34.496***
+#> 18 (Intercept)  Std Err   [2.074]   [1.787]   [7.441]
+#> 21                    N        32        32        32
+#> 22                   R2     0.726     0.843     0.845
+#> 23               adj R2     0.717     0.826     0.822
+#> 24                  AIC   169.306   155.477   157.067
+```
+
+### Heteroskedacity robust standard errors
+
+``` r
+outreg(fitlist, robust = TRUE)
+#>      .variable    .stat   Model 1   Model 2   Model 3
+#> 1  (Intercept) Estimate 37.885*** 38.752*** 34.496***
+#> 2  (Intercept)  Std Err   [2.528]   [2.017]   [6.085]
+#> 5          cyl Estimate -2.876***   -0.942*    -0.762
+#> 6          cyl  Std Err   [0.359]   [0.481]   [0.527]
+#> 9           wt Estimate           -3.167*** -2.973***
+#> 10          wt  Std Err             [0.664]   [0.756]
+#> 13          hp Estimate            -0.018**  -0.021**
+#> 14          hp  Std Err             [0.008]   [0.009]
+#> 17        drat Estimate                         0.818
+#> 18        drat  Std Err                       [1.014]
+#> 21                    N        32        32        32
+#> 22                   R2     0.726     0.843     0.845
+#> 23               adj R2     0.717     0.826     0.822
+#> 24                  AIC   169.306   155.477   157.067
+```
+
+### Poisson regression
 
 ``` r
 counts <- c(18,17,15,20,10,20,25,13,12)
@@ -166,7 +213,7 @@ outreg(fitlist2)
 #> 27                  AIC   52.761   56.761
 ```
 
-### Logistic regression.
+### Logistic regression
 
 ``` r
 fitlist3 <- list(glm(cbind(ncases, ncontrols) ~ agegp,
@@ -270,7 +317,7 @@ outreg(fitlist5)
 #> 22                  AIC   62.984   65.880
 ```
 
-### Combine instrument variable regression and linear regression.
+### Mix of OLS and instrument variable regression
 
 ``` r
 library(AER)
