@@ -5,7 +5,7 @@ Version: 0.2.1
 Author: Kota Mori <kmori05@gmail.com>
 Maintainer: Kota Mori <kmori05@gmail.com>
 Description: Create regression tables for publication.
-    Currently supports 'lm', 'glm`, 'survreg', and 'ivreg' outputs.
+    Currently supports 'lm', 'glm', 'survreg', and 'ivreg' outputs.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
