@@ -13,6 +13,10 @@ make_coef_part.glm <- function(fit, modelname, robust = FALSE, ...)
   out$zv <- out$coef / out$se
   out$pv <- pnorm(-abs(out$zv))*2
 
+  # define t value, identical with z value
+  # this may help when displaying LM and GLM together
+  out$tv <- out$zv
+
   rownames(out) <- NULL
   out
 }

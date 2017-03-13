@@ -154,16 +154,16 @@ outreg(fitlist2)
 #>      .variable    .stat  Model 1  Model 2
 #> 1  (Intercept) Estimate 3.045*** 3.045***
 #> 2  (Intercept)  Std Err  [0.126]  [0.171]
-#> 5     outcome2 Estimate -0.454** -0.454**
-#> 6     outcome2  Std Err  [0.202]  [0.202]
-#> 9     outcome3 Estimate   -0.293   -0.293
-#> 10    outcome3  Std Err  [0.193]  [0.193]
-#> 13  treatment2 Estimate             0.000
-#> 14  treatment2  Std Err           [0.200]
-#> 17  treatment3 Estimate             0.000
-#> 18  treatment3  Std Err           [0.200]
-#> 21                    N        9        9
-#> 22                  AIC   52.761   56.761
+#> 6     outcome2 Estimate -0.454** -0.454**
+#> 7     outcome2  Std Err  [0.202]  [0.202]
+#> 11    outcome3 Estimate   -0.293   -0.293
+#> 12    outcome3  Std Err  [0.193]  [0.193]
+#> 16  treatment2 Estimate             0.000
+#> 17  treatment2  Std Err           [0.200]
+#> 21  treatment3 Estimate             0.000
+#> 22  treatment3  Std Err           [0.200]
+#> 26                    N        9        9
+#> 27                  AIC   52.761   56.761
 ```
 
 ### Logistic regression.
@@ -176,51 +176,51 @@ fitlist3 <- list(glm(cbind(ncases, ncontrols) ~ agegp,
                  glm(cbind(ncases, ncontrols) ~ agegp + tobgp * alcgp,
                      data = esoph, family = binomial()))
 outreg(fitlist3)
-#>          .variable    .stat   Model 1   Model 2   Model 3
-#> 1      (Intercept) Estimate -2.139*** -1.780*** -1.760***
-#> 2      (Intercept)  Std Err   [0.189]   [0.198]   [0.198]
-#> 5          agegp.L Estimate  2.882***  3.005***  2.996***
-#> 6          agegp.L  Std Err   [0.644]   [0.652]   [0.654]
-#> 9          agegp.Q Estimate -1.629***  -1.338**  -1.350**
-#> 10         agegp.Q  Std Err   [0.583]   [0.591]   [0.592]
-#> 13         agegp.C Estimate     0.151     0.153     0.134
-#> 14         agegp.C  Std Err   [0.443]   [0.449]   [0.451]
-#> 17         agegp^4 Estimate     0.218     0.064     0.071
-#> 18         agegp^4  Std Err   [0.302]   [0.309]   [0.310]
-#> 21         agegp^5 Estimate    -0.178    -0.194    -0.213
-#> 22         agegp^5  Std Err   [0.189]   [0.195]   [0.196]
-#> 25         tobgp.L Estimate            0.594***  0.638***
-#> 26         tobgp.L  Std Err             [0.194]   [0.197]
-#> 29         tobgp.Q Estimate               0.065     0.029
-#> 30         tobgp.Q  Std Err             [0.188]   [0.196]
-#> 33         tobgp.C Estimate               0.157     0.156
-#> 34         tobgp.C  Std Err             [0.187]   [0.198]
-#> 37         alcgp.L Estimate            1.492***  1.371***
-#> 38         alcgp.L  Std Err             [0.199]   [0.211]
-#> 41         alcgp.Q Estimate              -0.227    -0.149
-#> 42         alcgp.Q  Std Err             [0.180]   [0.196]
-#> 45         alcgp.C Estimate               0.255     0.228
-#> 46         alcgp.C  Std Err             [0.159]   [0.182]
-#> 49 tobgp.L:alcgp.L Estimate                       -0.704*
-#> 50 tobgp.L:alcgp.L  Std Err                       [0.411]
-#> 53 tobgp.Q:alcgp.L Estimate                         0.122
-#> 54 tobgp.Q:alcgp.L  Std Err                       [0.420]
-#> 57 tobgp.C:alcgp.L Estimate                        -0.292
-#> 58 tobgp.C:alcgp.L  Std Err                       [0.429]
-#> 61 tobgp.L:alcgp.Q Estimate                         0.129
-#> 62 tobgp.L:alcgp.Q  Std Err                       [0.389]
-#> 65 tobgp.Q:alcgp.Q Estimate                        -0.445
-#> 66 tobgp.Q:alcgp.Q  Std Err                       [0.392]
-#> 69 tobgp.C:alcgp.Q Estimate                        -0.052
-#> 70 tobgp.C:alcgp.Q  Std Err                       [0.395]
-#> 73 tobgp.L:alcgp.C Estimate                        -0.161
-#> 74 tobgp.L:alcgp.C  Std Err                       [0.367]
-#> 77 tobgp.Q:alcgp.C Estimate                         0.048
-#> 78 tobgp.Q:alcgp.C  Std Err                       [0.362]
-#> 81 tobgp.C:alcgp.C Estimate                        -0.139
-#> 82 tobgp.C:alcgp.C  Std Err                       [0.358]
-#> 85                        N        88        88        88
-#> 86                      AIC   298.593   225.454   236.964
+#>           .variable    .stat   Model 1   Model 2   Model 3
+#> 1       (Intercept) Estimate -2.139*** -1.780*** -1.760***
+#> 2       (Intercept)  Std Err   [0.189]   [0.198]   [0.198]
+#> 6           agegp.L Estimate  2.882***  3.005***  2.996***
+#> 7           agegp.L  Std Err   [0.644]   [0.652]   [0.654]
+#> 11          agegp.Q Estimate -1.629***  -1.338**  -1.350**
+#> 12          agegp.Q  Std Err   [0.583]   [0.591]   [0.592]
+#> 16          agegp.C Estimate     0.151     0.153     0.134
+#> 17          agegp.C  Std Err   [0.443]   [0.449]   [0.451]
+#> 21          agegp^4 Estimate     0.218     0.064     0.071
+#> 22          agegp^4  Std Err   [0.302]   [0.309]   [0.310]
+#> 26          agegp^5 Estimate    -0.178    -0.194    -0.213
+#> 27          agegp^5  Std Err   [0.189]   [0.195]   [0.196]
+#> 31          tobgp.L Estimate            0.594***  0.638***
+#> 32          tobgp.L  Std Err             [0.194]   [0.197]
+#> 36          tobgp.Q Estimate               0.065     0.029
+#> 37          tobgp.Q  Std Err             [0.188]   [0.196]
+#> 41          tobgp.C Estimate               0.157     0.156
+#> 42          tobgp.C  Std Err             [0.187]   [0.198]
+#> 46          alcgp.L Estimate            1.492***  1.371***
+#> 47          alcgp.L  Std Err             [0.199]   [0.211]
+#> 51          alcgp.Q Estimate              -0.227    -0.149
+#> 52          alcgp.Q  Std Err             [0.180]   [0.196]
+#> 56          alcgp.C Estimate               0.255     0.228
+#> 57          alcgp.C  Std Err             [0.159]   [0.182]
+#> 61  tobgp.L:alcgp.L Estimate                       -0.704*
+#> 62  tobgp.L:alcgp.L  Std Err                       [0.411]
+#> 66  tobgp.Q:alcgp.L Estimate                         0.122
+#> 67  tobgp.Q:alcgp.L  Std Err                       [0.420]
+#> 71  tobgp.C:alcgp.L Estimate                        -0.292
+#> 72  tobgp.C:alcgp.L  Std Err                       [0.429]
+#> 76  tobgp.L:alcgp.Q Estimate                         0.129
+#> 77  tobgp.L:alcgp.Q  Std Err                       [0.389]
+#> 81  tobgp.Q:alcgp.Q Estimate                        -0.445
+#> 82  tobgp.Q:alcgp.Q  Std Err                       [0.392]
+#> 86  tobgp.C:alcgp.Q Estimate                        -0.052
+#> 87  tobgp.C:alcgp.Q  Std Err                       [0.395]
+#> 91  tobgp.L:alcgp.C Estimate                        -0.161
+#> 92  tobgp.L:alcgp.C  Std Err                       [0.367]
+#> 96  tobgp.Q:alcgp.C Estimate                         0.048
+#> 97  tobgp.Q:alcgp.C  Std Err                       [0.362]
+#> 101 tobgp.C:alcgp.C Estimate                        -0.139
+#> 102 tobgp.C:alcgp.C  Std Err                       [0.358]
+#> 106                        N        88        88        88
+#> 107                      AIC   298.593   225.454   236.964
 ```
 
 ### Survival regression
@@ -235,18 +235,18 @@ outreg(fitlist4)
 #>           .variable    .stat   Model 1   Model 2
 #> 1       (Intercept) Estimate  6.831***  6.732***
 #> 2       (Intercept)  Std Err   [0.429]   [0.424]
-#> 5           ph.ecog Estimate -0.326*** -0.324***
-#> 6           ph.ecog  Std Err   [0.086]   [0.086]
-#> 9               age Estimate    -0.008    -0.006
-#> 10              age  Std Err   [0.007]   [0.007]
-#> 13       Log(scale) Estimate -0.304***          
-#> 14       Log(scale)  Std Err   [0.062]          
-#> 17 Log(scale) sex=1 Estimate           -0.244***
-#> 18 Log(scale) sex=1  Std Err             [0.079]
-#> 21 Log(scale) sex=2 Estimate           -0.423***
-#> 22 Log(scale) sex=2  Std Err             [0.107]
-#> 25                         N       227       227
-#> 26                       AIC  2284.215  2284.504
+#> 6           ph.ecog Estimate -0.326*** -0.324***
+#> 7           ph.ecog  Std Err   [0.086]   [0.086]
+#> 11              age Estimate    -0.008    -0.006
+#> 12              age  Std Err   [0.007]   [0.007]
+#> 16       Log(scale) Estimate -0.304***          
+#> 17       Log(scale)  Std Err   [0.062]          
+#> 21 Log(scale) sex=1 Estimate           -0.244***
+#> 22 Log(scale) sex=1  Std Err             [0.079]
+#> 26 Log(scale) sex=2 Estimate           -0.423***
+#> 27 Log(scale) sex=2  Std Err             [0.107]
+#> 31                         N       227       227
+#> 32                       AIC  2284.215  2284.504
 ```
 
 ### Tobit regression
@@ -260,14 +260,14 @@ outreg(fitlist5)
 #>      .variable    .stat  Model 1  Model 2
 #> 1  (Intercept) Estimate   -2.227   15.145
 #> 2  (Intercept)  Std Err  [2.060] [16.079]
-#> 5          age Estimate            -0.129
-#> 6          age  Std Err           [0.219]
-#> 9        quant Estimate            -0.046
-#> 10       quant  Std Err           [0.058]
-#> 13  Log(scale) Estimate 1.783*** 1.718***
-#> 14  Log(scale)  Std Err  [0.309]  [0.310]
-#> 17                    N       20       20
-#> 18                  AIC   62.984   65.880
+#> 6          age Estimate            -0.129
+#> 7          age  Std Err           [0.219]
+#> 11       quant Estimate            -0.046
+#> 12       quant  Std Err           [0.058]
+#> 16  Log(scale) Estimate 1.783*** 1.718***
+#> 17  Log(scale)  Std Err  [0.309]  [0.310]
+#> 21                    N       20       20
+#> 22                  AIC   62.984   65.880
 ```
 
 ### Combine instrument variable regression and linear regression.
@@ -299,10 +299,10 @@ outreg(fitlist6)
 #> 14                              R2     0.433     0.429     0.274
 #> 15                          adj R2     0.408     0.404     0.241
 #> 16                             AIC   -19.680                    
-#> 17                 Wu-Hausman stat               3.068     3.553
-#> 18              Wu-Hausman p-value               0.087     0.037
+#> 17                 Wu-Hasuman stat               3.068     3.553
+#> 18                    WuHausman_pv               0.087     0.037
 #> 19                     Sargan stat               0.333     0.076
-#> 20                  Sargan p-value               0.564     0.783
+#> 20                       Sargan_pv               0.564     0.783
 #> 21  log(rprice)    Weak instr stat             244.734   195.613
 #> 22  log(rprice) Weak instr p-value               0.000     0.000
 #> 23 log(rincome)    Weak instr stat                         7.767
