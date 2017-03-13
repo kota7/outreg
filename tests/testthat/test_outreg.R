@@ -75,3 +75,36 @@ test_that('supported objects', {
 
 })
 
+
+
+
+context('displayed stats')
+
+test_that('include pv and tv, remove se', {
+  y <- c(0,1,2,3)
+  x <- c(3,2,5,6)
+  fit <- lm(y ~ x)
+  o <- outreg(fit, pv = TRUE, tv = TRUE, se = FALSE)
+
+  included <- outreg:::.display_names[c('pv', 'tv')] %>% unlist() %>% unname()
+  removed  <- outreg:::.display_names[c('se')] %>% unlist() %>% unname()
+  expect_true(all(included %in% o[['.stat']]))
+  expect_true(all(!(removed %in% o[['.stat']])))
+})
+
+
+test_that('two way to specify stats', {
+  y <- c(0,1,2,3)
+  x <- c(3,2,5,6)
+  fit <- lm(y ~ x)
+  expect_identical(
+    outreg(fit, pv = TRUE, se = FALSE),
+    outreg(fit, displayed = list(pv = TRUE, se = FALSE))
+  )
+})
+
+
+
+
+
+

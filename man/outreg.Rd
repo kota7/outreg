@@ -4,9 +4,9 @@
 \alias{outreg}
 \title{Generate Regression Table}
 \usage{
-outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
-  se = TRUE, pv = FALSE, tv = FALSE, zv = FALSE, bracket = c("se"),
-  starred = c("coef"), robust = FALSE, small = TRUE)
+outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
+  bracket = c("se"), starred = c("coef"), robust = FALSE, small = TRUE,
+  displayed = list(), ...)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
@@ -15,16 +15,6 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
 
 \item{alpha}{vector of significance levels to star}
 
-\item{coef}{show coefficients}
-
-\item{se}{show standard errors}
-
-\item{pv}{show p values}
-
-\item{tv}{show t values}
-
-\item{zv}{show z values}
-
 \item{bracket}{stats to be in brackets}
 
 \item{starred}{stats to put stars on}
@@ -32,6 +22,10 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01), coef = TRUE,
 \item{robust}{if TRUE, robust standard error is used}
 
 \item{small}{if TRUE, small sample parameter distribution is used}
+
+\item{displayed}{list to customize the stats to displaye}
+
+\item{...}{alternative way to specify which stats to display}
 }
 \value{
 regression table in data.frame format

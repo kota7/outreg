@@ -72,7 +72,7 @@ unfactor_df <- function(x)
 get_not_displayed <- function(displayed, ...)
 {
   # returns stats names not to display
-  out <- .not_displayed_default
+  out <- .not_displayed_default %>% unlist()
 
   displayed <- c(displayed, list(...))
   for (i in seq_along(displayed))

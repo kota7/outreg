@@ -29,6 +29,7 @@
 
 
 
-.not_displayed_default = c('pv', 'tv', 'zv')
-
+.not_displayed_default = list(
+  c('pv', 'tv', 'zv')
+)
 

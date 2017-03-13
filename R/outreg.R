@@ -83,7 +83,6 @@
 #' @export
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
-                   coef = TRUE,
                    bracket = c('se'), starred = c('coef'),
                    robust = FALSE, small = TRUE,
                    displayed = list(), ...)
