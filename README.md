@@ -160,7 +160,7 @@ outreg(fitlist2)
 #> 10    outcome3  Std Err  [0.193]  [0.193]
 #> 13  treatment2 Estimate             0.000
 #> 14  treatment2  Std Err           [0.200]
-#> 17  treatment3 Estimate            -0.000
+#> 17  treatment3 Estimate             0.000
 #> 18  treatment3  Std Err           [0.200]
 #> 21                    N        9        9
 #> 22                  AIC   52.761   56.761

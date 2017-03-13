@@ -4,15 +4,12 @@
 #' @param fitlist list of regression outcomes
 #' @param digits number of dicimal places for real numbers
 #' @param alpha  vector of significance levels to star
-#' @param coef show coefficients
-#' @param se show standard errors
-#' @param pv show p values
-#' @param tv show t values
-#' @param zv show z values
 #' @param bracket stats to be in brackets
 #' @param starred stats to put stars on
 #' @param robust if TRUE, robust standard error is used
 #' @param small if TRUE, small sample parameter distribution is used
+#' @param displayed list to customize the stats to displaye
+#' @param ... alternative way to specify which stats to display
 #' @return regression table in data.frame format
 #' @examples
 #' fitlist <- list(lm(mpg ~ cyl, data = mtcars),
@@ -86,9 +83,10 @@
 #' @export
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
-                   coef = TRUE, se = TRUE, pv = FALSE, tv = FALSE, zv = FALSE,
+                   coef = TRUE,
                    bracket = c('se'), starred = c('coef'),
-                   robust = FALSE, small = TRUE)
+                   robust = FALSE, small = TRUE,
+                   displayed = list(), ...)
 {
   # check the class of fitlist object
 
@@ -147,22 +145,21 @@ outreg <- function(fitlist,
   stat_df_reshaped <- reshape_stat_part(stat_df_str)
   opt_df_reshaped  <- reshape_opt_part(opt_df_str)
 
+  # stack the parts together
   out <- lazy_rbind(coef_df_reshaped, stat_df_reshaped, '') %>%
     lazy_rbind(opt_df_reshaped, '')
 
-  displayed <- unique(out$statname)
-  if (!coef) displayed <- setdiff(displayed, 'coef')
-  if (!se)   displayed <- setdiff(displayed, 'se')
-  if (!pv)   displayed <- setdiff(displayed, 'pv')
-  if (!tv)   displayed <- setdiff(displayed, 'tv')
-  if (!zv)   displayed <- setdiff(displayed, 'zv')
-  out <- out[out$statname %in% displayed,]
+  # choose stats to show
+  to_display <- setdiff(unique(out$statname),
+                        get_not_displayed(displayed, ...))
+  out <- out[out$statname %in% to_display,]
   out$statname[out$statname %in% names(.display_names)] <-
     .display_names[out$statname] %>% unlist() %>% unname()
 
-
+  # give true model names back
   out <- out[c('variable', 'statname', modelnames)]
   names(out) <- c('.variable', '.stat', modelnames_true)
+
   out
 }
 

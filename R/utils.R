@@ -65,3 +65,28 @@ unfactor_df <- function(x)
   }
   x
 }
+
+
+
+
+get_not_displayed <- function(displayed, ...)
+{
+  # returns stats names not to display
+  out <- .not_displayed_default
+
+  displayed <- c(displayed, list(...))
+  for (i in seq_along(displayed))
+  {
+    v <- displayed[[i]]
+    if (is.logical(v) || !is.na(v)) {
+      if (!v) {
+        out <- union(out, names(displayed)[i])
+      } else {
+        out <- setdiff(out, names(displayed)[i])
+      }
+    }
+  }
+  out
+}
+
+
