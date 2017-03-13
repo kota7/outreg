@@ -51,8 +51,12 @@ make_stat_part.ivreg <- function(fit, modelname, robust = FALSE, ...)
   diag <- diag[order(diag$stat2),]
   diag <- diag[order(diag$stat1),]
   diag$statname <- paste(as.character(diag$stat1), as.character(diag$stat2))
-  diag$statname <- sub('statistic$', 'stat', diag$statname)
-  diag$statname <- factor(diag$statname, levels = unique(diag$statname))
+  diag$statname <- diag$statname %>%
+    stringr::str_replace('statistic$', 'stat') %>%
+    stringr::str_replace('^Wu-Hausman', 'WuHausman') %>%
+    stringr::str_replace('p-value', 'pv') %>%
+    stringr::str_replace('[ ]+', '_')
+    diag$statname <- factor(diag$statname, levels = unique(diag$statname))
   diag <- diag[c('statname', 'value')]
   diag <- tidyr::spread_(diag, key = 'statname', value = 'value')
 
@@ -90,8 +94,10 @@ make_opt_part.ivreg <- function(fit, modelname, robust = FALSE, ...)
   diag <- diag[order(diag$stat1),]
   diag$statname <- paste(as.character(diag$stat1), as.character(diag$stat2))
   diag$statname <- diag$statname %>%
-    stringr::str_replace('^Weak instruments', 'Weak instr') %>%
-    stringr::str_replace('statistic$', 'stat')
+    stringr::str_replace('^Weak instruments', 'WeakInst') %>%
+    stringr::str_replace('statistic$', 'stat') %>%
+    stringr::str_replace('p-value', 'pv') %>%
+    stringr::str_replace('[ ]+', '_')
   diag$modelname <- modelname
   diag <- diag[c('modelname', 'variable', 'statname', 'value')]
   diag$statname <- factor(diag$statname, levels = unique(diag$statname))
