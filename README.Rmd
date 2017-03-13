@@ -99,6 +99,7 @@ outreg(fitlist, pv = TRUE, se = FALSE,
 outreg(fitlist, constbot = TRUE)
 ```
 
+
 ### Heteroskedacity robust standard errors
 ```{r}
 outreg(fitlist, robust = TRUE)
