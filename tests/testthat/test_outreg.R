@@ -104,6 +104,16 @@ test_that('two way to specify stats', {
 })
 
 
+test_that('priority in display specification', {
+  y <- c(0,1,2,3)
+  x <- c(3,2,5,6)
+  fit <- lm(y ~ x)
+  expect_identical(
+    outreg(fit, pv = TRUE),
+    outreg(fit, pv = TRUE, displayed = list(pv = FALSE))
+  )
+})
+
 
 
 context('const at bottom')

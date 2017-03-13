@@ -25,6 +25,7 @@ library(outreg)
 # outreg
 Create Regression Tables for Publication 
 
+
 ```{r, echo=FALSE}
 fitlist <- list(lm(mpg ~ cyl, data = mtcars),
                 lm(mpg ~ cyl + wt + hp, data = mtcars),

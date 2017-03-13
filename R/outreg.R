@@ -1,17 +1,28 @@
 
-
 #' Generate Regression Table
+#' @description Generate a regression table in \code{data.frame}
+#' format from a set of model fit objects.
 #' @param fitlist list of regression outcomes
 #' @param digits number of dicimal places for real numbers
 #' @param alpha  vector of significance levels to star
 #' @param bracket stats to be in brackets
 #' @param starred stats to put stars on
-#' @param constbot put intercept estimate at the bottom
+#' @param constbot if TRUE, intercept estimate is shown at bottom
 #' @param robust if TRUE, robust standard error is used
 #' @param small if TRUE, small sample parameter distribution is used
-#' @param displayed list to customize the stats to displaye
+#' @param displayed a list of logicals to customize the stats to display
 #' @param ... alternative way to specify which stats to display
 #' @return regression table in data.frame format
+#' @details Use \code{\link{outreg_stat_list}} to see the available stats
+#' names.  The stats names are to be used for specifying
+#' \code{bracket}, \code{starred}, and \code{displayed} options.
+#'
+#' Statistics to include can be chosen by \code{displayed} option or
+#' by \code{`...`}.
+#' For example, \code{outreg(fitlist, displayed = list(pv = TRUE))} is
+#' identical with \code{outreg(fitlist pv = TRUE)}, and
+#' p values of coefficients are displayed.
+#'
 #' @examples
 #' fitlist <- list(lm(mpg ~ cyl, data = mtcars),
 #'                 lm(mpg ~ cyl + wt + hp, data = mtcars),

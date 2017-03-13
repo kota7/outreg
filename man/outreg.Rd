@@ -19,13 +19,13 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 
 \item{starred}{stats to put stars on}
 
-\item{constbot}{put intercept estimate at the bottom}
+\item{constbot}{if TRUE, intercept estimate is shown at bottom}
 
 \item{robust}{if TRUE, robust standard error is used}
 
 \item{small}{if TRUE, small sample parameter distribution is used}
 
-\item{displayed}{list to customize the stats to displaye}
+\item{displayed}{a list of logicals to customize the stats to display}
 
 \item{...}{alternative way to specify which stats to display}
 }
@@ -33,7 +33,19 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 regression table in data.frame format
 }
 \description{
-Generate Regression Table
+Generate a regression table in \code{data.frame}
+format from a set of model fit objects.
+}
+\details{
+Use \code{\link{outreg_stat_list}} to see the available stats
+names.  The stats names are to be used for specifying
+\code{bracket}, \code{starred}, and \code{displayed} options.
+
+Statistics to include can be chosen by \code{displayed} option or
+by \code{`...`}.
+For example, \code{outreg(fitlist, displayed = list(pv = TRUE))} is
+identical with \code{outreg(fitlist pv = TRUE)}, and
+p values of coefficients are displayed.
 }
 \examples{
 fitlist <- list(lm(mpg ~ cyl, data = mtcars),
