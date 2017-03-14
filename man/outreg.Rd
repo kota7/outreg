@@ -26,9 +26,9 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 \item{constlast}{if TRUE, intercept is moved to the end of
 coefficient list}
 
-\item{norepeat}{if TRUE, repeated variable names are replaced by empty string}
+\item{norepeat}{if TRUE, repeated variable names are replaced by a empty string}
 
-\item{displayed}{a list of logicals to customize the stats to display}
+\item{displayed}{a list of named logicals to customize the stats to display}
 
 \item{...}{alternative way to specify which stats to display}
 }

@@ -150,7 +150,7 @@ outreg(fitlist, pv = TRUE, se = FALSE,
 ### Constant term at the bottom
 
 ``` r
-outreg(fitlist, constbot = TRUE)
+outreg(fitlist, constlast = TRUE)
 #>      .variable    .stat   Model 1   Model 2   Model 3
 #> 1          cyl Estimate -2.876***   -0.942*    -0.762
 #> 2               Std Err   [0.322]   [0.551]   [0.635]
@@ -207,7 +207,7 @@ outreg(fitlist2)
 #> 12              Std Err  [0.193]  [0.193]
 #> 16  treatment2 Estimate             0.000
 #> 17              Std Err           [0.200]
-#> 21  treatment3 Estimate            -0.000
+#> 21  treatment3 Estimate             0.000
 #> 22              Std Err           [0.200]
 #> 26                    N        9        9
 #> 27                  AIC   52.761   56.761

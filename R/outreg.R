@@ -13,8 +13,8 @@
 #' @param small if TRUE, small sample parameter distribution is used
 #' @param constlast if TRUE, intercept is moved to the end of
 #' coefficient list
-#' @param norepeat if TRUE, repeated variable names are replaced by empty string
-#' @param displayed a list of logicals to customize the stats to display
+#' @param norepeat if TRUE, repeated variable names are replaced by a empty string
+#' @param displayed a list of named logicals to customize the stats to display
 #' @param ... alternative way to specify which stats to display
 #' @return regression table in \code{data.frame} format
 #' @details Use \code{\link{outreg_stat_list}} to see the available stats
