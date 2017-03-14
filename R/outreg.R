@@ -2,19 +2,21 @@
 #' Generate Regression Table
 #' @description Generate a regression table in \code{data.frame}
 #' format from a set of model fit objects.
+#' Currently supports \code{lm}, \code{glm}, \code{survreg}, and \code{ivreg}
+#' model outcomes.
 #' @param fitlist list of regression outcomes
 #' @param digits number of dicimal places for real numbers
 #' @param alpha  vector of significance levels to star
 #' @param bracket stats to be in brackets
 #' @param starred stats to put stars on
-#' @param constbot if TRUE, intercept estimate is shown at bottom
-#' @param rmduplicate if TRUE, duplicate variable names are
-#' replaced by empty string
 #' @param robust if TRUE, robust standard error is used
 #' @param small if TRUE, small sample parameter distribution is used
+#' @param constlast if TRUE, intercept is moved to the end of
+#' coefficient list
+#' @param norepeat if TRUE, repeated variable names are replaced by empty string
 #' @param displayed a list of logicals to customize the stats to display
 #' @param ... alternative way to specify which stats to display
-#' @return regression table in data.frame format
+#' @return regression table in \code{data.frame} format
 #' @details Use \code{\link{outreg_stat_list}} to see the available stats
 #' names.  The stats names are to be used for specifying
 #' \code{bracket}, \code{starred}, and \code{displayed} options.
@@ -98,8 +100,8 @@
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
                    bracket = c('se'), starred = c('coef'),
-                   constbot = FALSE, rmduplicate = TRUE,
                    robust = FALSE, small = TRUE,
+                   constlast = FALSE, norepeat = TRUE,
                    displayed = list(), ...)
 {
   # check the class of fitlist object
@@ -155,12 +157,12 @@ outreg <- function(fitlist,
   opt_df_str  <- format_opt_part(opt_df, digits)
 
   # reshape each part
-  coef_df_reshaped <- reshape_coef_part(coef_df_str, constbot)
+  coef_df_reshaped <- reshape_coef_part(coef_df_str, constlast)
   stat_df_reshaped <- reshape_stat_part(stat_df_str)
   opt_df_reshaped  <- reshape_opt_part(opt_df_str)
 
 
-  if (rmduplicate) {
+  if (norepeat) {
     coef_df_reshaped$variable <- replace_duplicate(coef_df_reshaped$variable)
     opt_df_reshaped$variable <- replace_duplicate(opt_df_reshaped$variable)
   }

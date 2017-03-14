@@ -1,7 +1,7 @@
 Package: outreg
 Type: Package
 Title: Regression Table for Publication
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
   person("Kota", "Mori", email = "kmori05@gmail.com", role = c("aut", "cre"))
   )

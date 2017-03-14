@@ -4,7 +4,6 @@ library(magrittr)
 
 
 
-
 context('const at bottom')
 
 test_that('const bottom or not', {

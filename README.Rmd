@@ -96,7 +96,7 @@ outreg(fitlist, pv = TRUE, se = FALSE,
 
 ### Constant term at the bottom
 ```{r}
-outreg(fitlist, constbot = TRUE)
+outreg(fitlist, constlast = TRUE)
 ```
 
 

@@ -5,9 +5,8 @@
 \title{Generate Regression Table}
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
-  bracket = c("se"), starred = c("coef"), constbot = FALSE,
-  rmduplicate = TRUE, robust = FALSE, small = TRUE, displayed = list(),
-  ...)
+  bracket = c("se"), starred = c("coef"), robust = FALSE, small = TRUE,
+  constlast = FALSE, norepeat = TRUE, displayed = list(), ...)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
@@ -20,25 +19,27 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 
 \item{starred}{stats to put stars on}
 
-\item{constbot}{if TRUE, intercept estimate is shown at bottom}
-
-\item{rmduplicate}{if TRUE, duplicate variable names are
-replaced by empty string}
-
 \item{robust}{if TRUE, robust standard error is used}
 
 \item{small}{if TRUE, small sample parameter distribution is used}
+
+\item{constlast}{if TRUE, intercept is moved to the end of
+coefficient list}
+
+\item{norepeat}{if TRUE, repeated variable names are replaced by empty string}
 
 \item{displayed}{a list of logicals to customize the stats to display}
 
 \item{...}{alternative way to specify which stats to display}
 }
 \value{
-regression table in data.frame format
+regression table in \code{data.frame} format
 }
 \description{
 Generate a regression table in \code{data.frame}
 format from a set of model fit objects.
+Currently supports \code{lm}, \code{glm}, \code{survreg}, and \code{ivreg}
+model outcomes.
 }
 \details{
 Use \code{\link{outreg_stat_list}} to see the available stats
