@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg)
+[![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg) [![CRAN Status](http://www.r-pkg.org/badges/version/outreg)](http://www.r-pkg.org/badges/version/outreg)
 
 outreg
 ======
