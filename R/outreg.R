@@ -8,6 +8,8 @@
 #' @param bracket stats to be in brackets
 #' @param starred stats to put stars on
 #' @param constbot if TRUE, intercept estimate is shown at bottom
+#' @param rmduplicate if TRUE, duplicate variable names are
+#' replaced by empty string
 #' @param robust if TRUE, robust standard error is used
 #' @param small if TRUE, small sample parameter distribution is used
 #' @param displayed a list of logicals to customize the stats to display
@@ -96,7 +98,7 @@
 outreg <- function(fitlist,
                    digits = 3L, alpha = c(0.1, 0.05, 0.01),
                    bracket = c('se'), starred = c('coef'),
-                   constbot = FALSE,
+                   constbot = FALSE, rmduplicate = TRUE,
                    robust = FALSE, small = TRUE,
                    displayed = list(), ...)
 {
@@ -156,6 +158,12 @@ outreg <- function(fitlist,
   coef_df_reshaped <- reshape_coef_part(coef_df_str, constbot)
   stat_df_reshaped <- reshape_stat_part(stat_df_str)
   opt_df_reshaped  <- reshape_opt_part(opt_df_str)
+
+
+  if (rmduplicate) {
+    coef_df_reshaped$variable <- replace_duplicate(coef_df_reshaped$variable)
+    opt_df_reshaped$variable <- replace_duplicate(opt_df_reshaped$variable)
+  }
 
   # stack the parts together
   out <- lazy_rbind(coef_df_reshaped, stat_df_reshaped, '') %>%

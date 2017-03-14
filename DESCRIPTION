@@ -1,12 +1,12 @@
 Package: outreg
 Type: Package
 Title: Regression Table for Publication
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
   person("Kota", "Mori", email = "kmori05@gmail.com", role = c("aut", "cre"))
   )
 Description: Create regression tables for publication.
-    Currently supports lm, glm, suvreg, and ivreg outputs.
+    Currently supports 'lm', 'glm', 'survreg', and 'ivreg' outputs.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

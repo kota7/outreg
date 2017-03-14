@@ -6,7 +6,8 @@
 \usage{
 outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
   bracket = c("se"), starred = c("coef"), constbot = FALSE,
-  robust = FALSE, small = TRUE, displayed = list(), ...)
+  rmduplicate = TRUE, robust = FALSE, small = TRUE, displayed = list(),
+  ...)
 }
 \arguments{
 \item{fitlist}{list of regression outcomes}
@@ -20,6 +21,9 @@ outreg(fitlist, digits = 3L, alpha = c(0.1, 0.05, 0.01),
 \item{starred}{stats to put stars on}
 
 \item{constbot}{if TRUE, intercept estimate is shown at bottom}
+
+\item{rmduplicate}{if TRUE, duplicate variable names are
+replaced by empty string}
 
 \item{robust}{if TRUE, robust standard error is used}
 
