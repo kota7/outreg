@@ -8,7 +8,7 @@ outreg
 Create Regression Tables for Publication
 
 |     | .variable   | .stat    | Model 1      | Model 2      | Model 3      |
-|:----|:------------|:---------|:-------------|:-------------|:-------------|
+|-----|:------------|:---------|:-------------|:-------------|:-------------|
 | 1   | (Intercept) | Estimate | 37.885\*\*\* | 38.752\*\*\* | 34.496\*\*\* |
 | 2   |             | Std Err  | \[2.074\]    | \[1.787\]    | \[7.441\]    |
 | 5   | cyl         | Estimate | -2.876\*\*\* | -0.942\*     | -0.762       |
@@ -65,8 +65,13 @@ outreg(fitlist)
 Installation
 ------------
 
-This package is not on CRAN (yet).
-Please install it from the github repository.
+Install from the CRAN repository.
+
+``` r
+install.packages('outreg')
+```
+
+Or the recent version from the github repository.
 
 ``` r
 devtools::install_github('kota7/outreg')

@@ -59,8 +59,12 @@ outreg(fitlist)
 
 ## Installation
 
-This package is not on CRAN (yet).  
-Please install it from the github repository.
+Install from the CRAN repository.
+```{r, eval=FALSE}
+install.packages('outreg')
+```
+
+Or the recent version from the github repository.
 
 ```{r, eval=FALSE}
 devtools::install_github('kota7/outreg')
