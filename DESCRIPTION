@@ -1,9 +1,10 @@
 Package: outreg
 Type: Package
 Title: Regression Table for Publication
-Version: 0.1.0
-Author: Kota Mori <kmori05@gmail.com>
-Maintainer: Kota Mori <kmori05@gmail.com>
+Version: 0.2.0
+Authors@R: c(
+  person("Kota", "Mori", email = "kmori05@gmail.com", role = c("aut", "cre"))
+  )
 Description: Create regression tables for publication.
     Currently supports lm, glm, suvreg, and ivreg outputs.
 License: MIT + file LICENSE
@@ -24,3 +25,6 @@ Suggests:
     survival,
     testthat
 RoxygenNote: 5.0.1
+URL: https://github.com/kota7/outreg
+BugReports: https://github.com/kota7/outreg/issues
+
