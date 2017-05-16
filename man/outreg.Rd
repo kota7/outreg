@@ -122,4 +122,3 @@ fitlist6 <- list(OLS = lm(log(packs) ~ log(rprice) + log(rincome),
 outreg(fitlist6)
 
 }
-

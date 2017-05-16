@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg) [![CRAN Status](http://www.r-pkg.org/badges/version/outreg)](http://www.r-pkg.org/badges/version/outreg)
+[![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg) [![CRAN Status](http://www.r-pkg.org/badges/version/outreg)](http://www.r-pkg.org/badges/version/outreg) [![](http://cranlogs.r-pkg.org/badges/outreg)](http://cran.rstudio.com/web/packages/outreg/index.html)
 
 outreg
 ======
@@ -212,7 +212,7 @@ outreg(fitlist2)
 #> 12              Std Err  [0.193]  [0.193]
 #> 16  treatment2 Estimate             0.000
 #> 17              Std Err           [0.200]
-#> 21  treatment3 Estimate             0.000
+#> 21  treatment3 Estimate            -0.000
 #> 22              Std Err           [0.200]
 #> 26                    N        9        9
 #> 27                  AIC   52.761   56.761

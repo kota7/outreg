@@ -17,4 +17,3 @@ to choose stats to display or to choose stats to put starts.
 \examples{
 outreg_stat_list()
 }
-

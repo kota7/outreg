@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 [![Build Status](https://travis-ci.org/kota7/outreg.svg?branch=master)](https://travis-ci.org/kota7/outreg)
 [![CRAN Status](http://www.r-pkg.org/badges/version/outreg)](http://www.r-pkg.org/badges/version/outreg)
-
+[![](http://cranlogs.r-pkg.org/badges/outreg)](http://cran.rstudio.com/web/packages/outreg/index.html)
 
 
 ```{r, include=FALSE}

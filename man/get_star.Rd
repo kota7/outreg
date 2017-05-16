@@ -21,4 +21,3 @@ Based on the coefficient and standard errors and
 significance levels, return character vector of stars.
 }
 \keyword{internal}
-

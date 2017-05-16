@@ -24,7 +24,6 @@ Suggests:
     AER,
     survival,
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 URL: https://github.com/kota7/outreg
 BugReports: https://github.com/kota7/outreg/issues
-

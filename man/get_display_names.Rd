@@ -15,4 +15,3 @@ character vector of display names
 \description{
 Return display name for stats
 }
-
